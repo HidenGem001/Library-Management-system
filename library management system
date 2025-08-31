@@ -1,0 +1,59 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<ctype.h>
+
+#define MAX_BOOKS 100
+#define MAX_NAME_LENGTH 50
+#define MAX_PUBLISHER_LENGTH 50
+
+struct library
+{
+char bk_name[MAX_NAME_LENGTH];
+char publisher[MAX_PUBLISHER_LENGTH];
+float price;
+int is_available; // 1 for available, 0 for borrowed
+};
+
+struct library l[MAX_BOOKS];
+int book_count=0;
+
+void clearInputBuffer()
+{
+int c;
+while((c=getchar())!='\n'&& c!=EOF);
+}
+
+void addBook()
+{
+if(book_count>=MAX_BOOKS)
+{
+printf("\nLibrary is full! Cannot add more books.\n");
+return;
+}
+printf("\n--- Add New Book ---\n");
+printf("Enter book name:");
+fgets(l[book_count].bk_name,MAX_NAME_LENGTH,stdin);
+l[book_count].bk_name[strcspn(l[book_count].bk_name,"\n")]='\0'; 
+    
+printf("Enter publisher name:");
+fgets(l[book_count].publisher,MAX_PUBLISHER_LENGTH,stdin);
+l[book_count].publisher[strcspn(l[book_count].publisher,"\n")] ='\0'; // Remove trailing newline
+    
+printf("Enter price:");
+scanf("%f",&l[book_count].price);
+clearInputBuffer();
+    
+l[book_count].is_available=1;
+book_count++;
+    
+printf("\nBook added successfully!\n");
+}
+
+void displayAllBooks()
+{
+if(book_count==0)
+{
+printf("\nNo books available in the library.\n");
+return;
+}
