@@ -57,3 +57,43 @@ if(book_count==0)
 printf("\nNo books available in the library.\n");
 return;
 }
+
+printf("\n--- All Books in Library ---\n");
+printf("%-30s %-25s %-10s %s\n","Book Name","Publisher","Price","Status");
+printf("----------------------------------------------------------------------------\n");
+for(inti=0;i<book_count;i++)
+{
+char status[15];
+if(l[i].is_available)
+{
+strcpy(status,"Available");
+}
+else
+{
+strcpy(status,"Borrowed");
+}
+printf("%-30s %-25s $%-9.2f %s\n", 
+l[i].bk_name,l[i].publisher,l[i].price,status);
+}
+}void displayHighestPriceBook()
+{
+if(book_count==0)
+{
+printf("\nNo books available in the library.\n");
+return;
+}
+float max_price=l[0].price;
+int max_index=0;
+for(int i=1;i<book_count;i++)
+{
+if(l[i].price>max_price)
+{         
+max_price=l[i].price;
+max_index=i;
+}
+}
+printf("\n---Highest Price Book---\n");
+printf("Book Name:%s\n",l[max_index].bk_name);
+printf("Publisher:%s\n",l[max_index].publisher);
+printf("Price: $%.2f\n", l[max_index].price);
+}
